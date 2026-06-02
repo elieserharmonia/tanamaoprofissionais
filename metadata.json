@@ -1,0 +1,6 @@
+{
+  "name": "TáNaMão",
+  "description": "Seu catálogo digital completo de profissionais no estilo Páginas Amarelas. Encontre encanadores, eletricistas, médicos e técnicos locais com avaliações, visitas de perfil e contato direto.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
