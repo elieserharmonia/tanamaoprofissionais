@@ -371,6 +371,79 @@ export default function App() {
     await window.supabaseClient.auth.signOut();
   };
 
+  const buscarProfissionais = async (cidade: string, estado: string, categoria: string | null = null) => {
+    // @ts-ignore
+    let query = window.supabaseClient
+      .from('profissionais')
+      .select(`
+        *,
+        profissional_fotos(url, tipo),
+        planos_ativos(tipo, status, fim)
+      `)
+      .eq('cidade', cidade)
+      .eq('estado', estado)
+      .eq('ativo', true)
+      .order('total_visitas', { ascending: false });
+
+    if (categoria) query = query.eq('categoria', categoria);
+
+    // @ts-ignore
+    const { data, error } = await query;
+    if (error) throw error;
+    return data || [];
+  };
+
+  const autocomplete = async (termo: string) => {
+    // @ts-ignore
+    const { data, error } = await window.supabaseClient
+      .from('profissionais')
+      .select('id, nome, categoria, cidade, slug')
+      .or(`nome.ilike.%${termo}%,categoria.ilike.%${termo}%`)
+      .eq('ativo', true)
+      .limit(8);
+    
+    if (error) throw error;
+    return data || [];
+  };
+
+  const uploadFoto = async (arquivo: File, bucket: string, pasta: string) => {
+    const ext = arquivo.name.split('.').pop();
+    const path = `${pasta}/${Date.now()}.${ext}`;
+
+    // @ts-ignore
+    const { error } = await window.supabaseClient.storage
+      .from(bucket)
+      .upload(path, arquivo, { upsert: true });
+
+    if (error) throw error;
+
+    // @ts-ignore
+    const { data } = window.supabaseClient.storage
+      .from(bucket)
+      .getPublicUrl(path);
+
+    return data.publicUrl;
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (activeRegion) {
+        const [cidade, estado] = activeRegion.split(' - ');
+        try {
+          const data = await buscarProfissionais(cidade, estado, selectedCategory || null);
+          setProfessionals(data);
+        } catch (error) {
+          console.error("Erro ao buscar profissionais:", error);
+          // Keep using initial if error (or handle it)
+          setProfessionals(INITIAL_PROFESSIONALS); 
+        }
+      } else {
+        setProfessionals(INITIAL_PROFESSIONALS);
+      }
+    };
+    fetchData();
+  }, [activeRegion, selectedCategory]);
+
   useEffect(() => {
     // @ts-ignore
     const { data: { subscription } } = window.supabaseClient.auth.onAuthStateChange(async (event, session) => {
