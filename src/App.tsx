@@ -540,6 +540,38 @@ export default function App() {
   const [regionModalOpen, setRegionModalOpen] = useState<boolean>(false);
   const [loginModalOpen, setLoginModalOpen] = useState<boolean>(false);
   const [announceModalOpen, setAnnounceModalOpen] = useState<boolean>(false);
+  const [contactModalOpen, setContactModalOpen] = useState<boolean>(false);
+  const [contactForm, setContactForm] = useState({ 
+    nome: "", email: "", telefone: "", cidade: "", assunto: "Outro", mensagem: "" 
+  });
+  const [isSending, setIsSending] = useState<boolean>(false);
+
+  const handleSendEmail = async (e: FormEvent) => {
+    e.preventDefault();
+    setIsSending(true);
+    try {
+      // @ts-ignore
+      await window.emailjs.send("service_tanamao", "template_tanamao", {
+        nome: contactForm.nome,
+        email: contactForm.email,
+        telefone: contactForm.telefone,
+        cidade: contactForm.cidade,
+        assunto: contactForm.assunto,
+        mensagem: contactForm.mensagem,
+        destinatario: "apptanamaoprofissionais@gmail.com"
+      });
+      addToast("✅ Mensagem enviada! Retornaremos em até 24h.");
+    } catch (error) {
+      console.error(error);
+      const mailto = `mailto:apptanamaoprofissionais@gmail.com?subject=${encodeURIComponent(contactForm.assunto)}&body=${encodeURIComponent(`Nome: ${contactForm.nome}\nEmail: ${contactForm.email}\nTelefone: ${contactForm.telefone}\nCidade: ${contactForm.cidade}\n\n${contactForm.mensagem}`)}`;
+      window.location.href = mailto;
+    } finally {
+      setIsSending(false);
+      setContactModalOpen(false);
+      setContactForm({ nome: "", email: "", telefone: "", cidade: "", assunto: "Outro", mensagem: "" });
+    }
+  };
+
   const [storiesModalOpen, setStoriesModalOpen] = useState<boolean>(false);
   const [storyBg, setStoryBg] = useState<'navy' | 'dark' | 'yellow' | 'gradient'>('navy');
   
@@ -3679,11 +3711,10 @@ export default function App() {
 
           <div className="space-y-2.5 md:pl-6">
             <h4 className="text-white font-extrabold uppercase text-xs tracking-wider">Territórios Atendidos</h4>
-            <ul className="space-y-1.5 font-medium">
-              <li>• São Paulo - SP (Central Consolação, Paulista, Jardins)</li>
-              <li>• Rio de Janeiro - RJ (Copacabana, Barra, Leblon)</li>
-              <li>• Belo Horizonte - MG (Savassi, Sagrada Família, Centro)</li>
-            </ul>
+            <div className="space-y-1.5 font-medium">
+              <p>🇧🇷 Atendimento Nacional — Todo o Brasil</p>
+              <p>Encontre profissionais em qualquer cidade brasileira</p>
+            </div>
           </div>
 
           <div className="space-y-2.5">
@@ -3692,8 +3723,22 @@ export default function App() {
               Deseja credenciar um plano de destaque avançado ou auditar dados de perfil? Fale conosco!
             </p>
             <p className="text-white font-bold font-mono text-[11px]">
-              ✉️ contato@tanamao-amarelas.org
+              ✉️ apptanamaoprofissionais@gmail.com
             </p>
+            <a 
+              href="https://wa.me/+5514935026157" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-[#25D366] text-white px-3 py-1.5 rounded-lg text-[11px] font-bold hover:bg-[#1ebd5d] transition-colors"
+            >
+              💬 Falar no WhatsApp
+            </a>
+            <button 
+              onClick={() => setContactModalOpen(true)}
+              className="block w-full text-left mt-2 text-brand-yellow font-bold hover:text-white transition-colors"
+            >
+              📩 Enviar mensagem
+            </button>
           </div>
 
         </div>
@@ -3947,6 +3992,52 @@ export default function App() {
               </button>
             )}
 
+          </div>
+        </div>
+      )}
+
+      {contactModalOpen && (
+        <div className="fixed inset-0 z-55 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm overflow-y-auto">
+          <div className="bg-white max-w-md w-full rounded-3xl p-6 space-y-4 animate-slideup">
+             <div className="flex justify-between items-center">
+                <h3 className="text-lg font-black font-display tracking-tight text-slate-900">📩 Enviar mensagem</h3>
+                <button onClick={() => setContactModalOpen(false)} className="text-slate-400 hover:text-slate-900 p-2"><X /></button>
+             </div>
+             <form onSubmit={handleSendEmail} className="space-y-4">
+               <div>
+                 <label className="block text-xs font-bold text-slate-500 mb-1">Nome completo</label>
+                 <input type="text" required value={contactForm.nome} onChange={(e) => setContactForm({...contactForm, nome: e.target.value})} className="w-full text-sm border border-slate-200 rounded-xl p-3 focus:ring-brand-blue focus:border-brand-blue" />
+               </div>
+                <div>
+                 <label className="block text-xs font-bold text-slate-500 mb-1">E-mail</label>
+                 <input type="email" required value={contactForm.email} onChange={(e) => setContactForm({...contactForm, email: e.target.value})} className="w-full text-sm border border-slate-200 rounded-xl p-3 focus:ring-brand-blue focus:border-brand-blue" />
+               </div>
+               <div>
+                 <label className="block text-xs font-bold text-slate-500 mb-1">Telefone/WhatsApp</label>
+                 <input type="text" value={contactForm.telefone} onChange={(e) => setContactForm({...contactForm, telefone: e.target.value})} className="w-full text-sm border border-slate-200 rounded-xl p-3 focus:ring-brand-blue focus:border-brand-blue" />
+               </div>
+               <div>
+                 <label className="block text-xs font-bold text-slate-500 mb-1">Cidade / Estado</label>
+                 <input type="text" required value={contactForm.cidade} onChange={(e) => setContactForm({...contactForm, cidade: e.target.value})} className="w-full text-sm border border-slate-200 rounded-xl p-3 focus:ring-brand-blue focus:border-brand-blue" />
+               </div>
+               <div>
+                 <label className="block text-xs font-bold text-slate-500 mb-1">Assunto</label>
+                 <select value={contactForm.assunto} onChange={(e) => setContactForm({...contactForm, assunto: e.target.value})} className="w-full text-sm border border-slate-200 rounded-xl p-3 focus:ring-brand-blue focus:border-brand-blue">
+                   <option>Quero anunciar meu serviço</option>
+                   <option>Suporte técnico</option>
+                   <option>Dúvidas sobre planos</option>
+                   <option>Parceria comercial</option>
+                   <option>Outro</option>
+                 </select>
+               </div>
+               <div>
+                 <label className="block text-xs font-bold text-slate-500 mb-1">Mensagem (mín 20 caracteres)</label>
+                 <textarea required minLength={20} value={contactForm.mensagem} onChange={(e) => setContactForm({...contactForm, mensagem: e.target.value})} className="w-full text-sm border border-slate-200 rounded-xl p-3 h-24 focus:ring-brand-blue focus:border-brand-blue" />
+               </div>
+               <button type="submit" disabled={isSending} className="w-full py-3 bg-[#1B2A6B] text-white font-bold rounded-xl hover:bg-slate-900 transition flex items-center justify-center">
+                 {isSending ? 'Enviando...' : 'Enviar mensagem 📩'}
+               </button>
+             </form>
           </div>
         </div>
       )}
