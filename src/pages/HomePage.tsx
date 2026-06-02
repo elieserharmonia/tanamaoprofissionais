@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
-import { Header, CategoryTabs, PromoBanner, QuickAccessIcons, ProfessionalGrid, BottomNavigation } from '../components';
+import { Header } from '../components/Header';
+import { CategoryTabs } from '../components/CategoryTabs';
+import { PromoBanner } from '../components/PromoBanner';
+import { QuickAccessIcons } from '../components/QuickAccessIcons';
+import { ProfessionalGrid } from '../components/ProfessionalGrid';
+import { BottomNavigation } from '../components/BottomNavigation';
 
 // Sample data for professionals
 const sampleProfessionals = [
