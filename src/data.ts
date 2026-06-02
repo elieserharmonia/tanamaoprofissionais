@@ -14,19 +14,45 @@ export const INITIAL_PROFESSIONALS: Profissional[] = [
     celular: "(11) 94821-3322",
     email: "carlos.reformas@goldmail.com",
     endereco: "Rua Augusta, 1020 - Consolação",
-    destaque: "solo", // 1st Destaque Solo
+    destaque: "categoria",
     visitas: 1540,
-    dataCadastro: "2026-03-12T10:30:00Z",
-    atende24h: true, // 24h
+    dataCadastro: "2025-06-12T10:30:00Z", // 1+ years ago
+    atende24h: true,
     comGaleriaAmpliada: true,
+    destaqueCategoriaNome: "Reformas",
+    planoTipo: "categoria",
+    planoPeriodo: "mensal",
+    planoTermino: "2026-06-25",
+    verificadoCNPJ: true,
+    tipoVerificacao: "cnpj",
+    documento: "12.345.678/0001-95",
+    dadosReceita: {
+      razaoSocial: "Carlos E. O. Reformas de Interiores LTDA",
+      nomeFantasia: "Oliveira Reformas",
+      situacao: "ATIVA",
+      abertura: "2015-08-14",
+      cnae: "4330-4/04 - Serviços de pintura e acabamento residenciais"
+    },
     galeria: [
       "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&q=80&w=600",
       "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&q=80&w=600",
       "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=600"
     ],
     avaliacoes: [
-      { autor: "Sérgio Pinheiro", estrelas: 5, comentario: "Excelente profissional. Executou a reforma do meu banheiro com capricho e entregou antes do prazo.", data: "2026-05-18" },
-      { autor: "Camila Fraga", estrelas: 5, comentario: "Super educado, limpa toda a sujeira ao final do dia. Recomendo muito!", data: "2026-05-24" }
+      { autor: "Sérgio Pinheiro", autorEmail: "sergio@gmail.com", estrelas: 5, comentario: "Excelente profissional. Executou a reforma do meu banheiro com capricho e entregou antes do prazo.", data: "2026-05-18", resposta: "Muito obrigado Sérgio! Ficou excelente devido ao bom planejamento conjunto.", utilCount: 4, utilUsers: ["mari@gmail.com"] },
+      { autor: "Camila Fraga", autorEmail: "camila@hotmail.com", estrelas: 5, comentario: "Super educado, limpa toda a sujeira ao final do dia. Recomendo muito seu atendimento residêncial!", data: "2026-05-24", resposta: "Agradeço o comentário Camila! Sempre busco entregar a obra limpa.", utilCount: 1, utilUsers: [] }
+    ],
+    portfolio: [
+      {
+        antes: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=600",
+        depois: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&q=80&w=600",
+        titulo: "Reforma Completa de Banheiro",
+        descricao: "Substituição de azulejos antigos por porcelanato premium, troca de encanamentos e nova pia instalada."
+      }
+    ],
+    certificados: [
+      { curso: "Mestre de Obras Profissional", instituicao: "SENAI", ano: 2012 },
+      { curso: "Trabalho Seguro em Altura - NR-35", instituicao: "Seguradora Brasil", ano: 2021 }
     ]
   },
   {
@@ -42,17 +68,32 @@ export const INITIAL_PROFESSIONALS: Profissional[] = [
     celular: "(19) 98022-7711",
     email: "contato@claricemendesnutri.com.br",
     endereco: "Av. Barão de Itapura, 1500 - Botafogo",
-    destaque: "linha", // 1st Destaque Linha
+    destaque: "linha",
     visitas: 1890,
     dataCadastro: "2026-02-10T14:45:00Z",
     atende24h: false,
+    planoTipo: "linha",
+    planoPeriodo: "mensal",
+    planoTermino: "2026-07-02",
+    verificadoCPF: true,
+    tipoVerificacao: "cpf",
+    documento: "123.456.789-09",
+    dadosReceita: {
+      nomeCompleto: "Clarice de Mendes e Oliveira",
+      situacaoCPF: "REGULAR",
+      nascimento: "1988-11-20"
+    },
     galeria: [
       "https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&q=80&w=600",
       "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=600"
     ],
     avaliacoes: [
       { autor: "Heloisa Torres", estrelas: 5, comentario: "Incrível! A consulta presencial é ótima e o acompanhamento digital ajudou muito no meu foco diário.", data: "2026-05-12" },
-      { autor: "Augusto Ribeiro", estrelas: 4, comentario: "Excelente profissional. Atendimento humanizado e focado em metas reais.", data: "2026-05-29" }
+      { autor: "Augusto Ribeiro", estrelas: 4, comentario: "Excelente profissional. Atendimento humanizado e focado em metas reais de longo prazo.", data: "2026-05-29" }
+    ],
+    certificados: [
+      { curso: "Nutrição Clínica e Dietética Funcional", instituicao: "USP", ano: 2017 },
+      { curso: "Curso Avançado em Coach de Saúde Mental", instituicao: "Health Coaching Academy", ano: 2019 }
     ]
   },
   {
@@ -68,16 +109,36 @@ export const INITIAL_PROFESSIONALS: Profissional[] = [
     celular: "(14) 97511-9080",
     email: "fernandopinturas@gmail.com",
     endereco: "Av. Nações Unidas, 2200 - Centro",
-    destaque: "solo", // 2nd Destaque Solo
+    destaque: "solo",
     visitas: 2431,
     dataCadastro: "2026-04-01T08:00:00Z",
-    atende24h: true, // 24h
+    atende24h: true,
+    destaqueCidade: "Bauru - SP",
+    planoTipo: "solo",
+    planoPeriodo: "mensal",
+    planoTermino: "2026-06-30",
+    verificadoCPF: true,
+    tipoVerificacao: "cpf",
+    documento: "456.789.123-10",
+    dadosReceita: {
+      nomeCompleto: "Fernando Ramos da Silva",
+      situacaoCPF: "REGULAR",
+      nascimento: "1983-05-14"
+    },
     galeria: [
       "https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&q=80&w=600",
       "https://images.unsplash.com/photo-1517524206127-48bbd363f3d7?auto=format&fit=crop&q=80&w=600"
     ],
     avaliacoes: [
       { autor: "Marcos Lima", estrelas: 5, comentario: "O melhor pintor de Bauru! Fez a fachada da minha loja toda e ficou sensacional.", data: "2026-04-20" }
+    ],
+    portfolio: [
+      {
+        antes: "https://images.unsplash.com/photo-1517524206127-48bbd363f3d7?auto=format&fit=crop&q=80&w=600",
+        depois: "https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&q=80&w=600",
+        titulo: "Pintura Airless de Fachada Comercial",
+        descricao: "Pintura completa de fachada de 250 metros quadrados em apenas 1 dia utilizando pulverizador airless, com acabamento brilhoso impecável."
+      }
     ]
   },
   {
@@ -93,16 +154,31 @@ export const INITIAL_PROFESSIONALS: Profissional[] = [
     celular: "(11) 97311-5500",
     email: "contato@sofianogueira.com.br",
     endereco: "Rua Pamplona, 730 - Jardim Paulista",
-    destaque: "linha", // 2nd Destaque Linha
+    destaque: "linha",
     visitas: 1250,
     dataCadastro: "2026-05-02T16:00:00Z",
-    atende24h: true, // 24h
+    atende24h: true,
+    planoTipo: "linha",
+    planoPeriodo: "semanal",
+    planoTermino: "2026-06-09",
+    verificadoCPF: true,
+    tipoVerificacao: "cpf",
+    documento: "987.654.321-00",
+    dadosReceita: {
+      nomeCompleto: "Sofia Nogueira d'Avila",
+      situacaoCPF: "REGULAR",
+      nascimento: "1995-02-12"
+    },
     galeria: [
       "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&q=80&w=600",
       "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&q=80&w=600"
     ],
     avaliacoes: [
       { autor: "Fernanda Castanheira", estrelas: 5, comentario: "Espaço luxuoso e atendimento de rainha! O design ficou perfeito.", data: "2026-05-15" }
+    ],
+    denuncias: [
+      { motivo: "Informações enganosas", descricao: "A profissional cobra valores diferentes do combinado nas mensagens oficiais.", timestamp: "2026-06-01T15:00:00Z" },
+      { motivo: "Cobrança indevida fora do app", descricao: "Exigiu pagamento antecipado por fora sem emitir nota ou garantia de agendamento.", timestamp: "2026-06-02T09:30:00Z" }
     ]
   },
   {
@@ -119,15 +195,33 @@ export const INITIAL_PROFESSIONALS: Profissional[] = [
     email: "amanda.aulas@gmail.com",
     endereco: "Av. Brigadeiro Luis Antônio, 1420 - Bela Vista",
     destaque: "none",
-    visitas: 480,
-    dataCadastro: "2026-05-08T07:15:00Z",
+    visitas: 1480,
+    dataCadastro: "2025-01-10T07:15:00Z", // 1+ year ago, verified, 10+ reviews -> qualifies for Certificado TáNaMão
     atende24h: false,
+    verificadoCPF: true,
+    tipoVerificacao: "cpf",
+    documento: "223.334.445-56",
+    dadosReceita: {
+      nomeCompleto: "Amanda Cardoso de Lima",
+      situacaoCPF: "REGULAR",
+      nascimento: "1990-08-23"
+    },
+    isTanamaoCertificado: true,
     galeria: [
       "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&q=80&w=600",
       "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&q=80&w=600"
     ],
     avaliacoes: [
-      { autor: "Sueli Albuquerque", estrelas: 5, comentario: "Minha filha de 8 anos melhorou muito as notas e tomou gosto pela leitura. Amanda é fantástica!", data: "2026-05-27" }
+      { autor: "Sueli Albuquerque", estrelas: 5, comentario: "Minha filha de 8 anos melhorou muito as notas e tomou gosto pela leitura. Amanda é fantástica!", data: "2026-05-27", utilCount: 3, utilUsers: [] },
+      { autor: "Pedro Souza", estrelas: 5, comentario: "Extremamente didática e paciente. Super recomendo para todas as idades!", data: "2026-05-10" },
+      { autor: "Felipe G.", estrelas: 5, comentario: "Melhor reforço de matemática da região. Aprovado de primeira no colégio.", data: "2026-05-02" },
+      { autor: "Marcos Neto", estrelas: 5, comentario: "Excelente profissional didática e muito pontual.", data: "2026-04-20" },
+      { autor: "Ana Paula Silva", estrelas: 4, comentario: "Aulas dinâmicas e de muita inteligência e atenção.", data: "2026-04-18" },
+      { autor: "Renata C.", estrelas: 5, comentario: "Super dedicada e os relatórios de aula ajudam o acompanhamento.", data: "2026-04-12" },
+      { autor: "Rodrigo Alvez", estrelas: 5, comentario: "Professora fantástica, tem excelente domínio de conteúdo e técnica de ensino.", data: "2026-04-05" },
+      { autor: "Patrícia", estrelas: 5, comentario: "A metodologia de aprendizagem de português acelerou muito o rendimento de meu filho.", data: "2026-03-24" },
+      { autor: "Clara Gurgel", estrelas: 5, comentario: "Sem palavras para expressar nossa gratidão! Recomendo de olhos fechados.", data: "2026-03-12" },
+      { autor: "Júlia Mendes", estrelas: 5, comentario: "Profissional maravilhosa! Muito humana, carinhosa e focada.", data: "2026-03-02" }
     ]
   },
   {
@@ -143,16 +237,43 @@ export const INITIAL_PROFESSIONALS: Profissional[] = [
     celular: "(14) 98011-8833",
     email: "suporte@ricardotech.com.br",
     endereco: "Rua Gustavo Maciel, 410 - Centro",
-    destaque: "linha", // 3rd Destaque Linha
+    destaque: "none",
     visitas: 1120,
     dataCadastro: "2026-01-22T09:00:00Z",
-    atende24h: true, // 24h
+    atende24h: true,
+    planoTipo: "lead",
+    planoPeriodo: "unico",
+    saldoLeads: 35.00,
+    historicoLeads: [
+      { data: "2026-06-02", tipo: "Clique de Ligação (Telefone)", valor: -5.00 },
+      { data: "2026-06-01", tipo: "Conversa Iniciada no WhatsApp", valor: -5.00 },
+      { data: "2026-05-30", tipo: "Primeira Mensagem via Chat Interno", valor: -5.00 }
+    ],
+    leadsRecebidosSemana: 3,
+    verificadoCNPJ: true,
+    tipoVerificacao: "cnpj",
+    documento: "123.456.789/2010-12",
+    dadosReceita: {
+      razaoSocial: "Ricardo Abreu Junior TI & Redes EIRELI",
+      nomeFantasia: "Ricardo TI Solutions",
+      situacao: "ATIVA",
+      abertura: "2018-09-12",
+      cnae: "6209-1/00 - Suporte técnico, manutenção de computadores e outros serviços de tecnologia da informação"
+    },
     galeria: [
       "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=600",
       "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=600"
     ],
     avaliacoes: [
-      { autor: "Júlio César", estrelas: 5, comentario: "Resolveu o problema de lentidão do meu notebook em tempo recorde.", data: "2026-04-10" }
+      { autor: "Júlio César", estrelas: 5, comentario: "Resolveu o problema de lentidão do meu notebook em tempo recorde e limpou todo o cooler.", data: "2026-04-10", resposta: "Agradeço a confiança Júlio! Aquela poeira estava impedindo o arrefecimento correto do processador." }
+    ],
+    portfolio: [
+      {
+        antes: "https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&q=80&w=600",
+        depois: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=600",
+        titulo: "Otimização de Servidor & Cabeamento de Rede",
+        descricao: "Reestruturação completa de mini-rack servidor, identificação e anilhamento de 24 pontos de rede Cat6, com aumento de 3x na estabilidade da conexão da empresa."
+      }
     ]
   },
   {
@@ -171,7 +292,15 @@ export const INITIAL_PROFESSIONALS: Profissional[] = [
     destaque: "linha",
     visitas: 690,
     dataCadastro: "2026-04-18T11:20:00Z",
-    atende24h: true, // 24h
+    atende24h: true,
+    verificadoCPF: true,
+    tipoVerificacao: "cpf",
+    documento: "111.222.333-44",
+    dadosReceita: {
+      nomeCompleto: "Mariana Costa de Santos",
+      situacaoCPF: "REGULAR",
+      nascimento: "1991-12-05"
+    },
     galeria: [
       "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&q=80&w=600",
       "https://images.unsplash.com/photo-1585338107529-13afc5f02586?auto=format&fit=crop&q=80&w=600"
@@ -221,7 +350,7 @@ export const INITIAL_PROFESSIONALS: Profissional[] = [
     destaque: "none",
     visitas: 590,
     dataCadastro: "2026-03-30T10:11:00Z",
-    atende24h: true, // 24h
+    atende24h: true,
     galeria: [
       "https://images.unsplash.com/photo-1519699047748-de8e457a634e?auto=format&fit=crop&q=80&w=600",
       "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&q=80&w=600"
@@ -296,7 +425,7 @@ export const INITIAL_PROFESSIONALS: Profissional[] = [
     destaque: "none",
     visitas: 512,
     dataCadastro: "2026-05-15T11:00:00Z",
-    atende24h: true, // 24h
+    atende24h: true,
     galeria: [
       "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=600"
     ],
