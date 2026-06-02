@@ -371,6 +371,55 @@ export default function App() {
     await window.supabaseClient.auth.signOut();
   };
 
+  // --- NEW AUTH MODALITIES ---
+  const loginGoogle = async () => {
+    // @ts-ignore
+    const { error } = await window.supabaseClient.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: window.location.origin
+      }
+    });
+    if (error) console.error(error);
+  };
+  
+  const cadastrarEmail = async (nome: string, email: string, senha: string, tipo: 'client' | 'pro') => {
+      // @ts-ignore
+      const { data, error } = await window.supabaseClient.auth.signUp({
+        email, password: senha,
+        options: { data: { nome, tipo }, emailRedirectTo: window.location.origin }
+      });
+      if (error) throw error;
+      // @ts-ignore
+      await window.supabaseClient.from('usuarios').insert({
+          id: data.user?.id, nome, email, tipo,
+          codigo_indicacao: `TN-${nome.substring(0,3).toUpperCase()}${Math.floor(Math.random()*1000)}`
+      });
+      addToast('✅ Verifique seu e-mail para confirmar o cadastro!');
+  };
+
+  const loginEmail = async (email: string, senha: string) => {
+    // @ts-ignore
+    const { data, error } = await window.supabaseClient.auth.signInWithPassword({ email, password: senha });
+    if (error) throw error;
+    // posLogin handle?
+  };
+  
+  const recuperarSenha = async (email: string) => {
+    // @ts-ignore
+    const { error } = await window.supabaseClient.auth.resetPasswordForEmail(email, {
+      redirectTo: window.location.origin + '#/nova-senha'
+    });
+    if (!error) addToast('✅ Link de recuperação enviado para seu e-mail!');
+  };
+
+  const enviarOTP = async (telefone: string) => {
+    const numero = '+55' + telefone.replace(/\D/g, '');
+    // @ts-ignore
+    const { error } = await window.supabaseClient.auth.signInWithOtp({ phone: numero });
+    if (error) throw error;
+  };
+
   const buscarProfissionais = async (cidade: string, estado: string, categoria: string | null = null) => {
     // @ts-ignore
     let query = window.supabaseClient
@@ -2469,6 +2518,9 @@ export default function App() {
                     <p className="text-xs font-black text-[#F5C800] leading-tight mt-0.5 max-w-[100px] truncate">{userSession.nome}</p>
                   </div>
                 </button>
+                <button onClick={() => setContactModalOpen(true)} className="text-white hover:text-brand-yellow transition">
+                    <Mail className="w-5 h-5" />
+                 </button>
                 <button 
                   onClick={handleLogout}
                   className="text-[10px] bg-white/10 hover:bg-white/20 text-white/90 hover:text-white rounded-lg px-2 py-1 transition font-black uppercase border border-white/5"
@@ -2477,13 +2529,18 @@ export default function App() {
                 </button>
               </div>
             ) : (
-              <button 
-                onClick={() => setLoginModalOpen(true)}
-                className="flex items-center gap-1 bg-brand-yellow hover:bg-brand-accent text-brand-blue px-3.5 py-1.5 rounded-full text-xs font-bold transition active:scale-95 shadow-sm"
-              >
-                <User className="w-3.5 h-3.5 font-bold" />
-                <span>Entrar</span>
-              </button>
+              <div className="flex items-center gap-3">
+                 <button onClick={() => setContactModalOpen(true)} className="text-white hover:text-brand-yellow transition">
+                    <Mail className="w-5 h-5" />
+                 </button>
+                <button 
+                  onClick={() => setLoginModalOpen(true)}
+                  className="flex items-center gap-1 bg-brand-yellow hover:bg-brand-accent text-brand-blue px-3.5 py-1.5 rounded-full text-xs font-bold transition active:scale-95 shadow-sm"
+                >
+                  <User className="w-3.5 h-3.5 font-bold" />
+                  <span>Entrar</span>
+                </button>
+              </div>
             )}
 
           </div>
