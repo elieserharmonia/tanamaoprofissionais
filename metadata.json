@@ -1,0 +1,6 @@
+{
+  "name": "TáNaMão Brasil",
+  "description": "O Brasil encontra aqui. Plataforma nacional de busca de profissionais qualificados com avaliação real e contato direto via WhatsApp.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
